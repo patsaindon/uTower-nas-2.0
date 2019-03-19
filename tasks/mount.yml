@@ -1,0 +1,15 @@
+﻿---
+- name: create /mnt point for mount_point
+  file:
+    dest: "{{ mount_point }}"
+    state: directory
+    mode: "0777"
+
+- name: mount mergerfs array
+  mount:
+    name: "{{ mount_point }}"
+    src: /mnt/disk*
+    opts: defaults,allow_other,nonempty,use_ino,minfreespace=100G,category.create=epmfs,fsname=mergerfs 0 0
+    fstype: fuse.mergerfs
+    state: present
+

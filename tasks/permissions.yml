@@ -1,0 +1,9 @@
+---
+- name: "Permission share directories"
+  file:
+    path: "{{ item.path }}"
+    owner: ansible-nas
+    group: ansible-nas
+    mode: "u=rwX,g=rwX,o=rX"
+    recurse: false
+  loop: "{{ samba_shares }}"

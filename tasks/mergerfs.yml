@@ -1,0 +1,19 @@
+---
+- name:
+  uri:
+    url: https://api.github.com/repos/trapexit/mergerfs/releases/latest
+    return_content: true
+  register: json_reponse
+
+- name: Download mergerfs release "{{ json_reponse.json.tag_name }}"
+  get_url:
+    dest: /tmp/
+    force: yes
+    url: "https://github.com/trapexit/mergerfs/releases/download/{{ json_reponse.json.tag_name }}/mergerfs_{{ json_reponse.json.tag_name }}.ubuntu-{{ ansible_distribution_release }}_amd64.deb"
+
+- name: Install mergerfs {{ json_reponse.json.tag_name }}
+  become: true
+  apt:
+    deb: "/tmp/mergerfs_{{ json_reponse.json.tag_name }}.ubuntu-{{ ansible_distribution_release }}_amd64.deb"
+
+- include_tasks: mount.yml

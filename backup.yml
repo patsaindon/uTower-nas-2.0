@@ -1,0 +1,42 @@
+---
+- hosts: all
+  become: yes
+  vars_files:
+    - vars.yml
+    - containers.yml
+
+  tasks:
+
+  - name: Stop running containers
+    docker_container:
+      name: "{{ item.name }}"
+      state: stopped
+    with_items:
+      - { name: 'couchpotato' }
+      - { name: 'heimdall' }
+      - { name: 'embyserver' }
+      - { name: 'transmission' }
+      - { name: 'sickrage' }
+
+  - archive:
+      path: "{{ item.src_path }}"
+      dest: "{{ item.dest_path }}"
+      force: yes
+    with_items:
+      - { src_path: '/opt/couchpotato', dest_path: '/mnt/data/Backups/{{ date }}-couchpotato' }
+      - { src_path: '/opt/heimdall', dest_path: '/mnt/data/Backups/{{ date }}-heimdall' }
+      - { src_path: '/opt/embyserver', dest_path: '/mnt/data/Backups/{{ date }}-embyserver' }
+      - { src_path: '/opt/transmission', dest_path: '/mnt/data/Backups/{{ date }}-transmission' }
+      - { src_path: '/opt/sickrage', dest_path: '/mnt/data/Backups/{{ date }}-sickrage' }
+      - { src_path: '/etc/fstab', dest_path: '/mnt/data/Backups/{{ date }}-fstab' }
+
+  - name: Start stopped containers
+    docker_container:
+      name: "{{ item.name }}"
+      state: started
+    with_items:
+      - { name: 'couchpotato' }
+      - { name: 'heimdall' }
+      - { name: 'embyserver' }
+      - { name: 'transmission' }
+      - { name: 'sickrage' }
