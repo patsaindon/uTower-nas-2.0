@@ -19,8 +19,8 @@
       PUID: "{{ duckdns_user_id }}"
       PGID: "{{ duckdns_group_id }}"
       LOG_FILE: true #optional
+      SUBDOMAINS: "{{ duckdns_SUBDOMAINS }}"
+      TOKEN: "{{ duckdns_token }}"
     restart_policy: unless-stopped
     memory: 1g
 
-SUBDOMAINS: []
-TOKEN: "{{ duckdns_token}}"

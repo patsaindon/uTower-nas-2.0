@@ -10,8 +10,7 @@
 - name: Copy template config.ini
   template:
     src: couchpotato/config.ini.j2
-    dest:  "{{ sickrage_config_directory }}/config.ini"
-    remote_src: yes
+    dest:  "{{ couchpotato_config_directory }}/config.ini"
 
 - name: Couchpotato Docker Container
   docker_container:
@@ -20,7 +19,7 @@
     pull: true
     volumes:
       - "{{ couchpotato_config_directory }}:/config:rw"
-      - "{{ couchpotato_downloads_directory }}/completed:/downloads:rw"
+      - "{{ couchpotato_downloads_directory }}/movies:/downloads:rw"
       - "{{ couchpotato_movies_directory }}:/movies:rw"
       - "{{ couchpotato_torrents_directory }}:/torrents:rw"
     ports:

@@ -11,7 +11,7 @@ mount_point: /mnt/data
 disks: []
 
 # Pushbullet API key
-pushbullet_api_key: "o.Nqti2fLE18q0Rv66VvO3b49f6LxcDMJN"
+pushbullet_api: "o.Nqti2fLE18q0Rv66VvO3b49f6LxcDMJN"
 
 # uTower-disk role
 # ----------------
@@ -33,10 +33,13 @@ disk.path:
 traefik_enabled: true
 
 # Duckdns
-SUBDOMAINS: "towerbox"
-TOKEN: "7997c64f-6d30-4028-b10d-69b19498cd74"
+duckdns_config_directory: "{{ docker_home }}/duckdns/config"
+duckdns_enabled: true
+duckdns_SUBDOMAINS: "towerbox"
+duckdns_token: "7997c64f-6d30-4028-b10d-69b19498cd74"
 duckdns_user_id: "0"
 duckdns_group_id: "0"
+
 # BitTorrent
 # If you plan to use Transmission with OpenVPN, you'll need to copy group_vars/vpn_credentials.yml.dist
 # to group_vars/vpn_credentials.yml, then update it with your own settings.
@@ -71,7 +74,7 @@ heimdall_enabled: true
 portainer_enabled: true
 glances_enabled: true
 stats_enabled: true
-guacamole_enabled: true
+guacamole_enabled: false
 netdata_enabled: true
 watchtower_enabled: true
 cloudflare_ddns_enabled: false
@@ -170,7 +173,7 @@ samba_shares:
     path: "{{ movies_root }}"
 
   - name: tv
-    comment: 'TV Episodes'
+    comment: 'TV Shows'
     guest_ok: yes
     public: yes
     writable: yes
@@ -215,7 +218,39 @@ samba_shares:
     public: yes
     writable: yes
     browsable: yes
-    path: "{{ samba_shares_root }}/photos"
+    path: "{{ samba_shares_root }}/pictures"
+
+  - name: audiobooks
+    comment: 'Audiobooks'
+    guest_ok: yes
+    public: yes
+    writable: yes
+    browsable: yes
+    path: "{{ samba_shares_root }}/audiobooks"
+
+  - name: concerts
+    comment: 'Concerts'
+    guest_ok: yes
+    public: yes
+    writable: yes
+    browsable: yes
+    path: "{{ samba_shares_root }}/concerts"
+
+  - name: backups
+    comment: 'Backups'
+    guest_ok: yes
+    public: yes
+    writable: yes
+    browsable: yes
+    path: "{{ samba_shares_root }}/backups"
+
+  - name: comedy
+    comment: 'Comedy'
+    guest_ok: yes
+    public: yes
+    writable: yes
+    browsable: yes
+    path: "{{ samba_shares_root }}/comedy"
 
 ###
 ### Cloudflare
@@ -364,7 +399,7 @@ radarr_group_id: "0"
 ###
 couchpotato_config_directory: "{{ docker_home }}/couchpotato/config"
 couchpotato_movies_directory: "{{ movies_root }}"
-couchpotato_downloads_directory: "{{ downloads_root }}"
+couchpotato_downloads_directory: "{{ downloads_root }}/movies"
 couchpotato_torrents_directory: "{{ torrents_root }}"
 couchpotato_user_id: "0"
 couchpotato_group_id: "0"
@@ -375,7 +410,7 @@ couchpotato_group_id: "0"
 ###
 sickrage_config_directory: "{{ docker_home }}/sickrage/config"
 sickrage_tv_directory: "{{ tv_root }}"
-sickrage_downloads_directory: "{{ downloads_root }}"
+sickrage_downloads_directory: "{{ downloads_root }}/tv"
 sickrage_user_id: "0"
 sickrage_group_id: "0"
 

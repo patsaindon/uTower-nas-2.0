@@ -34,6 +34,10 @@
   - import_tasks: tasks/docker.yml
     tags: docker
 
+  - import_tasks: tasks/duckdns.yml
+    when: (duckdns_enabled | default(False))
+    tags: duckdns
+
   - import_tasks: tasks/portainer.yml
     when: (portainer_enabled | default(False))
     tags: portainer

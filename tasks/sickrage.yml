@@ -11,7 +11,6 @@
   template:
     src: sickrage/config.ini.j2
     dest:  "{{ sickrage_config_directory }}/config.ini"
-    remote_src: yes
 
 - name: Sickrage Docker Container
   docker_container:
@@ -20,7 +19,7 @@
     pull: true
     volumes:
       - "{{ sickrage_config_directory }}:/config:rw"
-      - "{{ sickrage_downloads_directory }}/completed:/downloads:rw"
+      - "{{ sickrage_downloads_directory }}/tv:/downloads:rw"
       - "{{ sickrage_tv_directory }}:/tv:rw"
     ports:
       - "8081:8081"
