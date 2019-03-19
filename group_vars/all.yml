@@ -3,15 +3,15 @@
 ###
 # Set these options to true or false to toggle specific features
 host_ip: 192.168.2.2
-user: user
-pass: Pps7308
+user: ""
+pass: ""
 
 # MergerFS
 mount_point: /mnt/data
 disks: []
 
 # Pushbullet API key
-pushbullet_api: "o.Nqti2fLE18q0Rv66VvO3b49f6LxcDMJN"
+pushbullet_api: ""
 
 # uTower-disk role
 # ----------------
@@ -35,8 +35,8 @@ traefik_enabled: true
 # Duckdns
 duckdns_config_directory: "{{ docker_home }}/duckdns/config"
 duckdns_enabled: true
-duckdns_SUBDOMAINS: "towerbox"
-duckdns_token: "7997c64f-6d30-4028-b10d-69b19498cd74"
+duckdns_SUBDOMAINS: ""
+duckdns_token: ""
 duckdns_user_id: "0"
 duckdns_group_id: "0"
 
